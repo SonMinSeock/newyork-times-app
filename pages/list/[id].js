@@ -1,3 +1,4 @@
+import Seo from "@/components/SEO";
 import Link from "next/link";
 
 export default function Detain({ id, results }) {
@@ -5,20 +6,23 @@ export default function Detain({ id, results }) {
 
   return (
     <>
-      <h1>{id}</h1>
-      <div className="books">
-        {books.map((book) => (
-          <div className="book">
-            <img src={book.book_image} />
-            <h3 className="book__title">{book.title}</h3>
-            <h4 className="book__author">{book.author}</h4>
-            <div className="buy-now__btn">
-              <Link href={book.amazon_product_url} legacyBehavior>
-                <a className="buy-now__link">Buy Now</a>
-              </Link>
+      <Seo title={id} />
+      <h1>{id || "Loading..."}</h1>
+      <div className="books__container">
+        <div className="books">
+          {books.map((book, id) => (
+            <div className="book" key={id}>
+              <img src={book.book_image} />
+              <h3 className="book__title">{book.title}</h3>
+              <h4 className="book__author">{book.author}</h4>
+              <div className="buy-now__btn">
+                <Link href={book.amazon_product_url} legacyBehavior>
+                  <a className="buy-now__link">Buy Now</a>
+                </Link>
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
       <style jsx>{`
         h1 {
@@ -26,15 +30,24 @@ export default function Detain({ id, results }) {
           justify-content: center;
           align-items: center;
           padding: 60px 0px;
+          color: black;
+          opacity: 0.5;
+          font-weight: bold;
+        }
+        .books__container {
+          display: flex;
+          justify-content: center;
+          align-items: center;
         }
         .books {
           display: grid;
-          grid-template-columns: repeat(4, minmax(50px, 1fr));
+          grid-template-columns: repeat(4, 1fr);
           gap: 10px;
-          padding: 0px 20px;
+          width: 50%;
+          margin-bottom: 30px;
         }
         .book {
-          background-color: green;
+          background: linear-gradient(90deg, #cfd9df 0%, #e2ebf0 100%);
           border-radius: 10px;
         }
         .book img {
@@ -45,6 +58,8 @@ export default function Detain({ id, results }) {
         .book__title {
           font-size: 20px;
           padding: 10px;
+          color: #304352;
+          font-weight: 800;
         }
         .book__author {
           padding: 5px 10px;
@@ -67,6 +82,7 @@ export default function Detain({ id, results }) {
         .buy-now__link {
           width: 100%;
           text-align: center;
+          color: #414345;
         }
       `}</style>
     </>

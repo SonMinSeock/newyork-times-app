@@ -33,6 +33,7 @@ export default function NavBar() {
         a {
           font-size: 18px;
           font-weight: 600;
+          color: black;
         }
         .active {
           border-bottom: 3px solid;
